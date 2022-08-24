@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int   @id @default(autoincrement()) @unique
+  name      String?
+  
+  Grades Grades[]
+}
+
+model Teacher {
+  id     Int @id @default(autoincrement()) @unique
+  name   String?
+
+  Grades Grades[]
+}
+
+model Grades {
+  id          Int    @id @default(autoincrement()) @unique
+  teacherId   Int? 
+  teacherName String?
+  userId      Int?
+  subject     String?
+  grade1      Float?
+  grade2      Float? 
+  grade3      Float?
+  grade4      Float?
+  grade5      Float?
+  grade6      Float?
+  grade7      Float?
+  grade8      Float?
+  Teacher     Teacher?  @relation(fields: [teacherId], references: [id])
+  User        User?     @relation(fields: [userId], references: [id])
+
+}
